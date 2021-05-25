@@ -1,0 +1,33 @@
+@charset "UTF-8";
+/*////////////////////////////////////////////////
+  サイト・コンテンツの横幅
+/*/
+/*////////////////////////////////////////////////
+  サイト・コンテンツのベースカラー
+/*/
+/*////////////////////////////////////////////////
+  フォント関係
+/*/
+/*////////////////////////////////////////////////
+  余白
+/*/
+.formContent {
+  background-color: #afa07f;
+  border: solid 1px gray;
+  margin: 0 auto;
+  width: 600px;
+  display: flex;
+  flex-flow: column;
+  padding: 3rem;
+}
+
+.formContent__inputText {
+  width: 70%;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+}
+
+.formContent h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}

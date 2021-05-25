@@ -1,0 +1,52 @@
+@charset "UTF-8";
+/*////////////////////////////////////////////////
+  サイト・コンテンツの横幅
+/*/
+/*////////////////////////////////////////////////
+  サイト・コンテンツのベースカラー
+/*/
+/*////////////////////////////////////////////////
+  フォント関係
+/*/
+/*////////////////////////////////////////////////
+  余白
+/*/
+.root__label, .root__label_active {
+  position: absolute;
+  top: 0;
+  font-size: 1rem;
+  margin: 0.5rem 1rem;
+  color: red;
+  -webkit-transition: top 0.2s ease-in-out, font-size 0.2s ease-in-out;
+  transition: top 0.4s ease-in-out, font-size 0.4s ease-in-out;
+}
+
+.root {
+  position: relative;
+}
+
+.root input[type='text'] {
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  background-color: rgba(217, 217, 217, 0.5);
+  border: solid 2px #5b5c76;
+}
+
+.root input[type='text']:focus {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: solid 2px #386ac5;
+  box-shadow: 0 0 8px 0 dodgerBlue;
+}
+
+.root input[type='text']:hover {
+  border: solid 2px #386ac5;
+}
+
+.root__label_active {
+  font-size: 0.5rem;
+  top: -1rem;
+  padding: 0 3px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50px;
+}
