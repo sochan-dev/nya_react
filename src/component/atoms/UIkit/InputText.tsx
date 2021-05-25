@@ -1,22 +1,22 @@
-import React, { VFC, useState, ChangeEvent } from 'react';
-import TextField from '@material-ui/core/Textfield';
+import React, { VFC, useState, ChangeEvent } from 'react'
+import TextField from '@material-ui/core/TextField'
 
 type props = {
-  fullWidth?: boolean;
-  label: string;
-  multiline?: boolean;
-  required?: true;
-  rows?: number;
-  value: number | string;
-  type?: string;
-  variant?: 'standard' | 'filled' | 'outlined';
-  defaultValue?: number | string;
-  autoFocus?: boolean;
-  disabled?: boolean;
-  shrink?: boolean;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-  className?: string;
-};
+  fullWidth?: boolean
+  label: string
+  multiline?: boolean
+  required?: true
+  rows?: number
+  value: number | string
+  type?: string
+  variant?: 'standard' | 'filled' | 'outlined'
+  defaultValue?: number | string
+  autoFocus?: boolean
+  disabled?: boolean
+  shrink?: boolean
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void
+  className?: string
+}
 
 const InputText: VFC<props> = (props) => {
   return (
@@ -35,15 +35,15 @@ const InputText: VFC<props> = (props) => {
         autoFocus={props.autoFocus}
         disabled={props.disabled}
         InputLabelProps={{
-          shrink: props.shrink,
+          shrink: props.shrink
         }}
         //inputProps={{ className: props.className }}
         onChange={props.onChange}
         className={props.className}
       />
     </>
-  );
-};
+  )
+}
 InputText.defaultProps = {
   fullWidth: true,
   multiline: true,
@@ -52,6 +52,6 @@ InputText.defaultProps = {
   type: 'text',
   shrink: true,
   autoFocus: true,
-  disabled: false,
-};
-export default InputText;
+  disabled: false
+}
+export default InputText
