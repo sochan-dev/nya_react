@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
-
+import { store } from '../stores'
+import { Provider } from 'react-redux'
+import Auth from '../component/containment/Auth'
 import { ThemeProvider as StyledComponentsThemeProvider } from 'styled-components'
 import {
   ThemeProvider as MaterialUIThemeProvider,
@@ -8,6 +10,8 @@ import {
 import CssBaseline from '@material-ui/core/CssBaseline'
 
 import theme from '../../styles/theme'
+import '../../styles/sass/reset.scss'
+import '../../styles/sass/global.scss'
 
 const MyApp = ({ Component, pageProps }): JSX.Element => {
   // Remove the server-side injected CSS.(https://material-ui.com/guides/server-rendering/)
@@ -23,7 +27,11 @@ const MyApp = ({ Component, pageProps }): JSX.Element => {
       <MaterialUIThemeProvider theme={theme}>
         <StyledComponentsThemeProvider theme={theme}>
           <CssBaseline />
-          <Component {...pageProps} />
+          <Provider store={store}>
+            <Auth>
+              <Component {...pageProps} />
+            </Auth>
+          </Provider>
         </StyledComponentsThemeProvider>
       </MaterialUIThemeProvider>
     </StylesProvider>

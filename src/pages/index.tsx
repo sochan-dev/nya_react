@@ -1,14 +1,21 @@
-import React from 'react'
-import { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import Styles from '../../styles/sass/test.module.scss'
+import { NextPage, GetStaticProps } from 'next'
+import React, { VFC } from 'react'
 
-const Home: NextPage = () => {
+import Test from '../component/Test'
+
+export const getStaticProps = async () => {
+  return {
+    props: {},
+    revalidate: 30
+  }
+}
+
+const Home: NextPage = (props) => {
   return (
-    <div className={Styles.test}>
-      <p>test</p>
+    <div>
+      <Test />
     </div>
   )
 }
+
 export default Home
