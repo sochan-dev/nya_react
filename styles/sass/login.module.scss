@@ -1,0 +1,21 @@
+@charset "UTF-8";
+@import './variables.scss';
+.formContent {
+  background-color: $color-main-1;
+  border: solid 1px gray;
+  margin: 0 auto;
+  width: $width-login-main;
+  display: flex;
+  flex-flow: column;
+  padding: 3rem;
+
+  &__inputText {
+    width: 70%;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+  }
+  h1 {
+    font-size: $font-h1 - 1rem;
+    margin-bottom: 2rem;
+  }
+}

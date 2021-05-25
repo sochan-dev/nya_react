@@ -1,0 +1,42 @@
+@charset "UTF-8";
+@import './variables.scss';
+
+%labelStyle {
+  position: absolute;
+  top: 0;
+  font-size: 1rem;
+  margin: 0.5rem 1rem;
+  color: red;
+  -webkit-transition: top 0.2s ease-in-out, font-size 0.2s ease-in-out;
+  transition: top 0.4s ease-in-out, font-size 0.4s ease-in-out;
+}
+
+.root {
+  position: relative;
+  input[type='text'] {
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    background-color: rgba(darken(white, 15%), 0.5);
+    border: solid 2px $color-accent;
+    &:focus {
+      outline: none;
+      background-color: rgba(white, 0.7);
+      border: solid 2px $font-focus;
+      box-shadow: 0 0 8px 0 dodgerBlue;
+    }
+    &:hover {
+      border: solid 2px $font-focus;
+    }
+  }
+  &__label {
+    @extend %labelStyle;
+    &_active {
+      @extend %labelStyle;
+      font-size: 0.5rem;
+      top: -1rem;
+      padding: 0 3px;
+      background-color: rgba(white, 0.7);
+      border-radius: 50px;
+    }
+  }
+}
