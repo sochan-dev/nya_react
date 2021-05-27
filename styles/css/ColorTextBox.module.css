@@ -16,37 +16,85 @@
   top: 0;
   font-size: 1rem;
   margin: 0.5rem 1rem;
-  color: red;
+  color: lighten #5b5c76;
   -webkit-transition: top 0.2s ease-in-out, font-size 0.2s ease-in-out;
-  transition: top 0.4s ease-in-out, font-size 0.4s ease-in-out;
+  transition: top 0.2s ease-in-out, font-size 0.2s ease-in-out;
+}
+
+.w_10 {
+  width: 10%;
+}
+
+.w_20 {
+  width: 20%;
+}
+
+.w_30 {
+  width: 30%;
+}
+
+.w_40 {
+  width: 40%;
+}
+
+.w_50 {
+  width: 50%;
+}
+
+.w_60 {
+  width: 60%;
+}
+
+.w_70 {
+  width: 70%;
+}
+
+.w_80 {
+  width: 80%;
+}
+
+.w_90 {
+  width: 90%;
+}
+
+.w_100 {
+  width: 100%;
 }
 
 .root {
   position: relative;
+  margin: 0 auto;
 }
 
-.root input[type='text'] {
+.root input[type='text'],
+.root input[type='number'],
+.root input[type='password'] {
+  width: 100%;
   border-radius: 10px;
   padding: 0.5rem 1rem;
   background-color: rgba(217, 217, 217, 0.5);
   border: solid 2px #5b5c76;
 }
 
-.root input[type='text']:focus {
+.root input[type='text']:focus,
+.root input[type='number']:focus,
+.root input[type='password']:focus {
   outline: none;
   background-color: rgba(255, 255, 255, 0.7);
   border: solid 2px #386ac5;
   box-shadow: 0 0 8px 0 dodgerBlue;
 }
 
-.root input[type='text']:hover {
+.root input[type='text']:hover,
+.root input[type='number']:hover,
+.root input[type='password']:hover {
   border: solid 2px #386ac5;
 }
 
 .root__label_active {
   font-size: 0.5rem;
   top: -1rem;
-  padding: 0 3px;
-  background-color: rgba(255, 255, 255, 0.7);
+  padding: 0 0.5rem;
+  background-color: #e3e3e3;
   border-radius: 50px;
 }

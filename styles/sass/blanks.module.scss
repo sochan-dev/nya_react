@@ -1,0 +1,8 @@
+$i: 8;
+
+@while $i <= 64 {
+  .blank_#{$i} {
+    height: #{$i}px;
+  }
+  $i: $i + 8;
+}

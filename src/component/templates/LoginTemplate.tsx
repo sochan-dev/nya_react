@@ -1,54 +1,57 @@
-import React, { VFC, useState, ChangeEvent } from 'react';
-import Link from 'next/link';
-import { InputText, ActionButton, ColorTextBox } from '../atoms/UIkit';
-import { login } from '../../lib/login';
-import Styles from '../../../styles/sass/login.module.scss';
-import Paper from '@material-ui/core/Paper';
+import React, { VFC, useState, ChangeEvent } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import Link from 'next/link'
+import { InputText, ActionButton, ColorTextBox } from '../atoms/UIkit'
+import { login } from '../../asynchronous/login'
+import Styles from '../../../styles/sass/login.module.scss'
+import Blanks from '../../../styles/sass/blanks.module.scss'
+import Paper from '@material-ui/core/Paper'
+import { getAuthStatus } from '../../stores/slices/AuthStatusSlice'
 
 const LoginTemplate: VFC = () => {
-  const [id, setId] = useState('');
-  const [password, setPassword] = useState('');
+  const { isLoading, errorMessage } = useSelector(getAuthStatus)
+
+  const [id, setId] = useState('')
+  const [password, setPassword] = useState('')
 
   const inputId = (e: ChangeEvent<HTMLInputElement>) => {
-    setId(e.target.value);
-  };
+    setId(e.target.value)
+  }
   const inputPassword = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
+    setPassword(e.target.value)
+  }
 
-  const handleOnClick = async () => {
-    await login(id, password);
-  };
+  const handleOnClick = () => {
+    login(id, password)
+  }
 
   return (
     <main>
       <Paper elevation={7} className={Styles.formContent}>
         <h1>管理者ログイン </h1>
-        <InputText
-          label={'ID'}
-          variant={'outlined'}
+        <ColorTextBox
+          type={'text'}
+          w={80}
           value={id}
-          onChange={(e) => inputId(e)}
-          className={Styles.formContent__inputText}
+          label={'ID'}
+          onChange={inputId}
         />
-        <InputText
-          label={'password'}
-          variant={'filled'}
-          value={password}
+        <br />
+        <br />
+        <ColorTextBox
           type={'password'}
-          onChange={(e) => inputPassword(e)}
-          className={Styles.formContent__inputText}
+          w={80}
+          value={password}
+          label={'パスワード'}
+          onChange={inputPassword}
         />
-        <br />
-        <br />
-        <br />
-        <br />
-        <ColorTextBox value={id} label={'テスト'} onChange={inputId} />
+        <div className={Blanks.blank_32} />
+        <ActionButton label={'送信'} onClick={handleOnClick} w={50} />
+        {errorMessage}
       </Paper>
-      <ActionButton label={'hello'} onClick={handleOnClick} />
       <Link href="/">TOPへ</Link>
     </main>
-  );
-};
+  )
+}
 
-export default LoginTemplate;
+export default LoginTemplate
