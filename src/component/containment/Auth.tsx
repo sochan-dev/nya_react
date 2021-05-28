@@ -1,25 +1,25 @@
-import React, { useEffect, useState, VFC } from 'react';
-import Router from 'next/router';
+import React, { useEffect, useState, VFC, ReactNode } from 'react'
+import Router from 'next/router'
 
 interface props {
-  children: React.ReactNode;
+  children: ReactNode
 }
 
-const Auth: VFC<props | any> = ({ children }) => {
-  const [isLoad, setIsLoad] = useState(true);
+const Auth: VFC<props> = ({ children }) => {
+  const [isLoad, setIsLoad] = useState(true)
 
   useEffect(() => {
     //認証
-    console.log('認証');
-    if (true) Router.push('/login');
-    setIsLoad(false);
-  }, []);
+    console.log('認証')
+    if (true) Router.push('/login')
+    setIsLoad(false)
+  }, [])
 
   if (isLoad) {
-    return <>認証中</>;
+    return <>認証中</>
   } else {
-    return children;
+    return <>{children}</>
   }
-};
+}
 
-export default Auth;
+export default Auth

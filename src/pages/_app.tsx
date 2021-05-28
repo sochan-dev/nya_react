@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { store } from '../stores'
 import { Provider } from 'react-redux'
-import Auth from '../component/containment/Auth'
+import { Auth, FadeLayer } from '../component/containment'
 import { ThemeProvider as StyledComponentsThemeProvider } from 'styled-components'
 import {
   ThemeProvider as MaterialUIThemeProvider,
@@ -28,9 +28,11 @@ const MyApp = ({ Component, pageProps }): JSX.Element => {
         <StyledComponentsThemeProvider theme={theme}>
           <CssBaseline />
           <Provider store={store}>
-            <Auth>
-              <Component {...pageProps} />
-            </Auth>
+            <FadeLayer>
+              <Auth>
+                <Component {...pageProps} />
+              </Auth>
+            </FadeLayer>
           </Provider>
         </StyledComponentsThemeProvider>
       </MaterialUIThemeProvider>

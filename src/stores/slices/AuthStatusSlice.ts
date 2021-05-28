@@ -69,7 +69,13 @@ export const login = createAsyncThunk<
   { user_id: String; password: String },
   { dispatch: AppDispatch; state: RootState }
 >('authStatus/login', async (inputInfo, thunkApi) => {
-  const res = await axios.post<response>('', '')
+  const req = JSON.stringify(inputInfo)
+
+  const res = await axios.post<response>(
+    'http://localhost:3000/ih13a-slack/login',
+    req
+  )
+  console.log('r', res)
   return res
 })
 
@@ -98,6 +104,9 @@ export const authStatusSlice = createSlice({
     })
     builder.addCase(login.pending, (state, action) => {
       state.isLoading = true
+    })
+    builder.addCase(login.rejected, (state, action) => {
+      state.isLoading = false
     })
   }
 })
