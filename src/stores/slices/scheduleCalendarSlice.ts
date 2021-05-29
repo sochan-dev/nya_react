@@ -6,7 +6,7 @@ import { AppDispatch, AppThunk, RootState } from '../../stores'
   型宣言
 /*/ ///////////////////////////////////////////////
 //loadingStatusの初期値
-interface loadingStatus {
+interface scheduleCalendar {
   isLoading: boolean
   isSuccess: boolean
   isError: String
@@ -19,7 +19,7 @@ type test = {
 /*////////////////////////////////////////////////
   stateの初期値
 /*/ ///////////////////////////////////////////////
-const initialState: loadingStatus = {
+const initialState: scheduleCalendar = {
   isLoading: false,
   isSuccess: false,
   isError: '',
@@ -33,7 +33,7 @@ export const testCreateAsyncThunk = createAsyncThunk<
   test,
   String,
   { dispatch: AppDispatch; state: RootState }
->('loadingStatus/test', async (message, thunkApi) => {
+>('scheduleCalendar/test', async (message, thunkApi) => {
   let a = message
   await new Promise((resolve) =>
     setTimeout(() => {
@@ -46,8 +46,8 @@ export const testCreateAsyncThunk = createAsyncThunk<
 /*////////////////////////////////////////////////
   createSlice
 /*/ ///////////////////////////////////////////////
-export const loadingStatusSlice = createSlice({
-  name: 'loadingStatus',
+export const scheduleCalendarSlice = createSlice({
+  name: 'scheduleCalendar',
   initialState,
   //reducer
   reducers: {
@@ -73,13 +73,10 @@ export const loadingStatusSlice = createSlice({
 /*////////////////////////////////////////////////
   Actions
 /*/ ///////////////////////////////////////////////
-export const { switchLoading } = loadingStatusSlice.actions
+export const { switchLoading } = scheduleCalendarSlice.actions
 
 /*////////////////////////////////////////////////
   Selector
 /*/ ///////////////////////////////////////////////
 
-export const getLoadingStatus = (state: RootState): loadingStatus =>
-  state.loadingStatus
-
-export default loadingStatusSlice.reducer
+export default scheduleCalendarSlice.reducer

@@ -1,19 +1,26 @@
-import { NextPage, GetStaticProps } from 'next'
+import { NextPage, InferGetStaticPropsType } from 'next'
 import React, { VFC } from 'react'
+import { useDispatch } from 'react-redux'
+import { calendar } from '../lib/posts'
+import { MainTemplate } from '../component/templates'
+import { switchLoading } from '../stores/slices/loadingStatusSlice'
 
-import Test from '../component/Test'
+type props = InferGetStaticPropsType<typeof getStaticProps>
 
 export const getStaticProps = async () => {
   return {
-    props: {},
+    props: { calendar: calendar },
     revalidate: 30
   }
 }
 
-const Home: NextPage = (props) => {
+const Home: NextPage<props> = (props) => {
+  const dispatch = useDispatch()
+  dispatch(switchLoading('ff'))
+  console.log(props.calendar)
   return (
     <div>
-      <Test />
+      <MainTemplate />
     </div>
   )
 }

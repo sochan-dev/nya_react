@@ -1,17 +1,22 @@
-import React, { VFC, useState, ChangeEvent } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { VFC, useState, useEffect, ChangeEvent } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import Link from 'next/link'
-import { InputText, ActionButton, ColorTextBox } from '../atoms/UIkit'
+import { ActionButton, ColorTextBox } from '../atoms/UIkit'
 import Styles from '../../../styles/sass/login.module.scss'
 import Blanks from '../../../styles/sass/blanks.module.scss'
 import Paper from '@material-ui/core/Paper'
-import { login } from '../../stores/slices/AuthStatusSlice'
+import { login, auth, getAuthStatus } from '../../stores/slices/AuthStatusSlice'
 
 const LoginTemplate: VFC = () => {
   const dispatch = useDispatch()
+  const { isLogin } = useSelector(getAuthStatus)
 
   const [id, setId] = useState('')
   const [password, setPassword] = useState('')
+
+  useEffect(() => {
+    dispatch(auth())
+  }, [])
 
   const inputId = (e: ChangeEvent<HTMLInputElement>) => {
     setId(e.target.value)
@@ -29,24 +34,30 @@ const LoginTemplate: VFC = () => {
     <main>
       <Paper elevation={7} className={Styles.formContent}>
         <h1>管理者ログイン </h1>
-        <ColorTextBox
-          type={'text'}
-          w={80}
-          value={id}
-          label={'ID'}
-          onChange={inputId}
-        />
-        <br />
-        <br />
-        <ColorTextBox
-          type={'password'}
-          w={80}
-          value={password}
-          label={'パスワード'}
-          onChange={inputPassword}
-        />
-        <div className={Blanks.blank_32} />
-        <ActionButton label={'送信'} onClick={handleOnClick} w={50} />
+        {!isLogin ? (
+          <>
+            <ColorTextBox
+              type={'text'}
+              w={80}
+              value={id}
+              label={'ID'}
+              onChange={inputId}
+            />
+            <br />
+            <br />
+            <ColorTextBox
+              type={'password'}
+              w={80}
+              value={password}
+              label={'パスワード'}
+              onChange={inputPassword}
+            />
+            <div className={Blanks.blank_32} />
+            <ActionButton label={'送信'} onClick={handleOnClick} w={50} />
+          </>
+        ) : (
+          <p>ログイン済みです。</p>
+        )}
       </Paper>
       <Link href="/">TOPへ</Link>
     </main>

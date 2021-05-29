@@ -1,6 +1,8 @@
+import Router from 'next/router'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AppDispatch, AppThunk, RootState } from '../../stores'
+import { getToken, setToken, deleteToken } from '../../utils/editToken'
 import axios, { AxiosResponse } from 'axios'
 
 /*////////////////////////////////////////////////
@@ -8,6 +10,7 @@ import axios, { AxiosResponse } from 'axios'
 /*/ ///////////////////////////////////////////////
 //loadingStatusの初期値
 interface authStatus {
+  isLogin: boolean
   isLoading: boolean
   errorMessage: string
 }
@@ -37,10 +40,16 @@ type response = {
   }
 }
 
+//authのリクエストパラメーター
+type authRequest = {
+  token: string
+}
+
 /*////////////////////////////////////////////////
   stateの初期値
 /*/ ///////////////////////////////////////////////
 const initialState: authStatus = {
+  isLogin: false,
   isLoading: false,
   errorMessage: 'okokokokok'
 }
@@ -71,12 +80,23 @@ export const login = createAsyncThunk<
 >('authStatus/login', async (inputInfo, thunkApi) => {
   const req = JSON.stringify(inputInfo)
 
-  const res = await axios.post<response>(
+  let res = await axios.post<response>(
     'http://localhost:3000/ih13a-slack/login',
     req
   )
-  console.log('r', res)
+  //res = JSON.parse(JSON.stringify(res))
   return res
+})
+//自動認証
+export const auth = createAsyncThunk<boolean>('authStatus/auth', async () => {
+  const token = getToken()
+  if (!token) return false
+
+  const params: authRequest = { token: token }
+  const req = JSON.stringify(params)
+  const res = await axios.post('http://localhost:3000/ih13a-slack/login', req)
+
+  return res.data.result.user_id ? true : false
 })
 
 /*////////////////////////////////////////////////
@@ -95,19 +115,34 @@ export const authStatusSlice = createSlice({
   //AsyncThunkを扱うreducer
   extraReducers: (builder) => {
     //login関数
-    builder.addCase(login.fulfilled, (state, action) => {
-      if (action.payload.data.error) {
-        state.errorMessage = 'idまたはパスワードが違います。'
-        return
-      }
-      state.isLoading = false
-    })
-    builder.addCase(login.pending, (state, action) => {
-      state.isLoading = true
-    })
-    builder.addCase(login.rejected, (state, action) => {
-      state.isLoading = false
-    })
+    builder
+      .addCase(login.fulfilled, (state, action) => {
+        if (action.payload.data.error) {
+          state.errorMessage = 'idまたはパスワードが違います。'
+          return
+        }
+        state.isLoading = false
+      })
+      .addCase(login.pending, (state, action) => {
+        state.isLoading = true
+      })
+      .addCase(login.rejected, (state, action) => {
+        state.isLoading = false
+        Router.push('/')
+      })
+
+    builder
+      .addCase(auth.fulfilled, (state, action) => {
+        state.isLogin = action.payload ? true : false
+        state.isLoading = false
+      })
+      .addCase(auth.pending, (state, action) => {
+        state.isLoading = true
+      })
+      .addCase(auth.rejected, (state, action) => {
+        state.isLoading = false
+        //state.isLogin = true
+      })
   }
 })
 /*////////////////////////////////////////////////
