@@ -1,10 +1,12 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
 import loadingStatusReducer from './slices/loadingStatusSlice'
 import authStatusReducer from './slices/AuthStatusSlice'
+import scheduleReducer from './slices/scheduleSlice'
 export const store = configureStore({
   reducer: {
     loadingStatus: loadingStatusReducer,
-    authStatus: authStatusReducer
+    authStatus: authStatusReducer,
+    schedule: scheduleReducer
   }
 })
 

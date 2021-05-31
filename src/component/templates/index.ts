@@ -1,2 +1,2 @@
 export { default as LoginTemplate } from './LoginTemplate'
-export { default as MainTemplate } from './MainTemplate'
+export { default as TopTemplate } from './TopTemplate'

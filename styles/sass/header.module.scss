@@ -1,0 +1,10 @@
+@charset "UTF-8";
+@import './variables.scss';
+@import './componentWidth.scss';
+
+.root {
+  background-color: $color-main-1;
+  width: 100%;
+  height: $height-header;
+  margin-bottom: 2rem;
+}

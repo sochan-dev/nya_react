@@ -1,16 +1,24 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { AppDispatch, AppThunk, RootState } from '../../stores'
+import { AppDispatch, AppThunk, RootState } from '..'
 
 /*////////////////////////////////////////////////
   型宣言
 /*/ ///////////////////////////////////////////////
 //loadingStatusの初期値
-interface scheduleCalendar {
-  isLoading: boolean
-  isSuccess: boolean
-  isError: String
-  testMessage: String
+
+export interface schedule {
+  id: number
+  title: string
+  detail: string
+  datetime: Date
+  type_id: number
+  channel_id: number
+}
+
+interface schedules {
+  isLoading: false
+  schedules: schedule[]
 }
 //テスト処理のAsyncThunk
 type test = {
@@ -19,11 +27,9 @@ type test = {
 /*////////////////////////////////////////////////
   stateの初期値
 /*/ ///////////////////////////////////////////////
-const initialState: scheduleCalendar = {
+const initialState: schedules = {
   isLoading: false,
-  isSuccess: false,
-  isError: '',
-  testMessage: 'hello AsyncThunk'
+  schedules: []
 }
 /*////////////////////////////////////////////////
   createAsyncThunk
@@ -33,7 +39,7 @@ export const testCreateAsyncThunk = createAsyncThunk<
   test,
   String,
   { dispatch: AppDispatch; state: RootState }
->('scheduleCalendar/test', async (message, thunkApi) => {
+>('schedule/test', async (message, thunkApi) => {
   let a = message
   await new Promise((resolve) =>
     setTimeout(() => {
@@ -46,37 +52,27 @@ export const testCreateAsyncThunk = createAsyncThunk<
 /*////////////////////////////////////////////////
   createSlice
 /*/ ///////////////////////////////////////////////
-export const scheduleCalendarSlice = createSlice({
-  name: 'scheduleCalendar',
+export const scheduleSlice = createSlice({
+  name: 'schedules',
   initialState,
   //reducer
   reducers: {
     //読み込み中にする
-    switchLoading: (state, action: PayloadAction<string>) => {
-      console.log('switchLoading')
-      state.isLoading = true
-      state.isSuccess = false
-      state.isError = ''
-      state.testMessage = action.payload + 'Action成功'
+    setSchedule: (state, action: PayloadAction<any>) => {
+      state.schedules = action.payload
     }
   },
   //AsyncThunkを扱うreducer
-  extraReducers: (builder) => {
-    builder.addCase(testCreateAsyncThunk.fulfilled, (state, action) => {
-      state.testMessage = action.payload.test
-    })
-    builder.addCase(testCreateAsyncThunk.pending, (state, action) => {
-      state.testMessage = '読み込み中'
-    })
-  }
+  extraReducers: (builder) => {}
 })
 /*////////////////////////////////////////////////
   Actions
 /*/ ///////////////////////////////////////////////
-export const { switchLoading } = scheduleCalendarSlice.actions
+export const { setSchedule } = scheduleSlice.actions
 
 /*////////////////////////////////////////////////
   Selector
 /*/ ///////////////////////////////////////////////
-
-export default scheduleCalendarSlice.reducer
+export const getSchedule = (state: RootState): schedule[] =>
+  state.schedule.schedules
+export default scheduleSlice.reducer

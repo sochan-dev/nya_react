@@ -1,0 +1,8 @@
+@charset "UTF-8";
+@import './variables.scss';
+@import './componentWidth.scss';
+
+.root {
+  width: $width-base;
+  margin: 0 auto;
+}

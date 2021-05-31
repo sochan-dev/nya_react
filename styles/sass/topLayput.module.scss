@@ -1,0 +1,26 @@
+@charset "UTF-8";
+@import './variables.scss';
+@import './componentWidth.scss';
+
+.root {
+  display: flex;
+  justify-content: center;
+  .calendar {
+    background-color: red;
+    width: $width-top-calendar;
+    height: 70vh;
+    overflow: scroll;
+  }
+  .wrapArea {
+    .scheduleArea {
+      background-color: blue;
+      width: $width-top-scheduleArea;
+      height: 30vh;
+    }
+    .timetableArea {
+      background-color: green;
+      width: $width-top-timetable;
+      height: 45vh;
+    }
+  }
+}

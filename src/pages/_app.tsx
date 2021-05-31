@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react'
 import { store } from '../stores'
 import { Provider } from 'react-redux'
-import { Auth, FadeLayer } from '../component/containment'
+import { Layout, FadeLayer } from '../component/containment'
 import { ThemeProvider as StyledComponentsThemeProvider } from 'styled-components'
 import {
   ThemeProvider as MaterialUIThemeProvider,
   StylesProvider
 } from '@material-ui/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
+import { Header } from '../component/organisms'
 
 import theme from '../../styles/theme'
 import '../../styles/sass/reset.scss'
@@ -29,9 +30,10 @@ const MyApp = ({ Component, pageProps }): JSX.Element => {
           <CssBaseline />
           <Provider store={store}>
             <FadeLayer>
-              <Auth>
+              <Header />
+              <Layout>
                 <Component {...pageProps} />
-              </Auth>
+              </Layout>
             </FadeLayer>
           </Provider>
         </StyledComponentsThemeProvider>
